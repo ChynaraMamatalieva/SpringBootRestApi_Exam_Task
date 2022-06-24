@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "company_gen")
     @SequenceGenerator(name = "company_gen", sequenceName = "company_seq", allocationSize = 1)
     private Long id;
     @Column(name = "company_name")

@@ -1,6 +1,7 @@
 package peaksoft.springbootrestapi_exam_task.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import peaksoft.springbootrestapi_exam_task.dto.request.CompanyRequest;
 import peaksoft.springbootrestapi_exam_task.dto.request.StudentRequest;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StudentService {
 
     private final StudentRepository studentRepository;
@@ -39,13 +41,12 @@ public class StudentService {
     }
 
     public StudentResponse save(Long groupId, StudentRequest studentRequest) {
-
+        log.info("save student");
         Group group = groupRepository.findById(groupId).orElseThrow(
                 () -> new GroupNotFoundException(
                         "Group with id = " + groupId + " not found!"
                 )
         );
-
         Student student = new Student();
         student.setFirstName(studentRequest.getFirstName());
         student.setLastName(studentRequest.getLastName());
@@ -58,7 +59,6 @@ public class StudentService {
         studentRepository.save(student);
         return StudentResponse.from(student);
     }
-
 
     public StudentResponse findById(Long studentId) {
         return StudentResponse.from(studentRepository.findById(studentId).get());
@@ -98,13 +98,6 @@ public class StudentService {
         if (currentStudyFormat != null && !currentStudyFormat.equals(newStudyFormat)) {
             student.setStudyFormat(newStudyFormat);
         }
-//        //group
-//        Group currentGroup = student.getGroup();
-//        Group newGroup = studentRequest.getGroup();
-//
-//        if (currentGroup != null && !currentGroup.equals(newGroup)) {
-//            student.setGroup(newGroup);
-//        }
         return StudentResponse.from(student);
     }
 

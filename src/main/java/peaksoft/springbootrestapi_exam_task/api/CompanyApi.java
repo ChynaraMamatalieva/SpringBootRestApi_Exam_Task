@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/companies")
 @CrossOrigin
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ADMIN')")
 public class CompanyApi {
     private final CompanyService companyService;
 
@@ -35,6 +34,7 @@ public class CompanyApi {
 
     //save
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public CompanyResponse save(@RequestBody CompanyRequest companyRequest) {
         return companyService.save(companyRequest);
 
@@ -42,12 +42,14 @@ public class CompanyApi {
 
     //delete
     @DeleteMapping("/delete/{companyId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse deleteById(@PathVariable Long companyId) {
         return companyService.deleteById(companyId);
     }
 
     //update
     @PutMapping("/update/{companyId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public CompanyResponse updateById(@PathVariable Long companyId,
                                       @RequestBody CompanyRequest companyRequest) {
         return companyService.updateById(companyId, companyRequest);

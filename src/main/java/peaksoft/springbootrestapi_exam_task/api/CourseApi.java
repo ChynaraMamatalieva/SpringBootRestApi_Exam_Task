@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ADMIN')")
 public class CourseApi {
     private final CourseService courseService;
 
@@ -30,6 +29,7 @@ public class CourseApi {
 
     //save
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public CourseResponse save(@RequestBody CourseRequest courseRequest) {
         return courseService.save(courseRequest, courseRequest.getCompanyId());
     }
@@ -43,6 +43,7 @@ public class CourseApi {
 
     //update
     @PutMapping("/update/{courseId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public CourseResponse updateById(@PathVariable Long courseId,
                                      @RequestBody CourseRequest courseRequest) {
         return courseService.updateById(courseId, courseRequest);
@@ -50,6 +51,7 @@ public class CourseApi {
 
     //delete
     @DeleteMapping("/delete/{courseId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse deleteById(@PathVariable Long courseId) {
         return courseService.deleteById(courseId);
     }

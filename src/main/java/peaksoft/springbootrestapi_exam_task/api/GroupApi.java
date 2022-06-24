@@ -17,7 +17,7 @@ import java.util.Properties;
 @RestController
 @RequestMapping("/api/groups")
 @CrossOrigin
-@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 public class GroupApi {
     private final GroupService groupService;
 
@@ -34,6 +34,7 @@ public class GroupApi {
 
     //save
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public GroupResponse save(@RequestBody GroupRequest groupRequest) {
         return groupService.save(groupRequest);
 
@@ -48,6 +49,7 @@ public class GroupApi {
 
     //update
     @PutMapping("/update/{groupId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public GroupResponse updateById(@PathVariable Long groupId,
                                     @RequestBody GroupRequest groupRequest) {
         return groupService.updateById(groupId, groupRequest);
@@ -55,6 +57,7 @@ public class GroupApi {
 
     //delete
     @DeleteMapping("/delete/{groupId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse deleteById(@PathVariable Long groupId) {
         return groupService.deleteById(groupId);
     }

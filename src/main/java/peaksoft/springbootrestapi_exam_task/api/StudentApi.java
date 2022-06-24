@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("api/students")
 @CrossOrigin
-@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class StudentApi {
 
     private final StudentService studentService;
@@ -36,6 +35,7 @@ public class StudentApi {
 
     //save
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public StudentResponse save(@RequestBody StudentRequest studentRequest) {
         return studentService.save(studentRequest.getGroupId(), studentRequest);
 
@@ -50,12 +50,14 @@ public class StudentApi {
 
     //delete
     @DeleteMapping("/delete/{studentId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse deleteById(@PathVariable Long studentId) {
         return studentService.deleteById(studentId);
     }
 
     //update
     @PutMapping("/update/{studentId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public StudentResponse updateById(@PathVariable Long studentId,
                                       @RequestBody StudentRequest studentRequest) {
         return studentService.updateById(studentId, studentRequest);

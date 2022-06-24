@@ -24,6 +24,8 @@ public class TeacherResponse {
         teacherResponse.setFirstName(teacher.getFirstName());
         teacherResponse.setLastName(teacher.getLastName());
         teacherResponse.setEmail(teacher.getEmail());
+        teacherResponse.setCourseName(teacher.getCourse().getCourseName());
+
         //teacherResponse.setCourse(teacher.getCourse());
         // courseResponse.setSizeOfGroups(course.getGroups().size());
         return teacherResponse;

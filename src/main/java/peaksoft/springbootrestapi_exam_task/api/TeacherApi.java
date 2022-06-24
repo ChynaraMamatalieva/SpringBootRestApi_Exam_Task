@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/teachers")
-@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class TeacherApi {
     private final TeacherService teacherService;
 
@@ -32,6 +31,7 @@ public class TeacherApi {
 
     //save
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public TeacherResponse save(@RequestBody TeacherRequest teacherRequest) {
         return teacherService.save(teacherRequest.getCourseId(), teacherRequest);
 
@@ -46,12 +46,15 @@ public class TeacherApi {
 
     //delete
     @DeleteMapping("/delete/{teacherId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse deleteById(@PathVariable Long teacherId) {
         return teacherService.deleteById(teacherId);
     }
 
     //update
     @PutMapping("/update/{teacherId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+
     public TeacherResponse updateById(@PathVariable Long teacherId,
                                       @RequestBody TeacherRequest teacherRequest) {
         return teacherService.updateById(teacherId, teacherRequest);
