@@ -1,5 +1,6 @@
 package peaksoft.springbootrestapi_exam_task.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.springbootrestapi_exam_task.dto.request.StudentRequest;
@@ -25,6 +26,7 @@ public class TeacherApi {
     //find all
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find all teachers")
     public List<TeacherResponse> findAll() {
         return teacherService.findAll();
     }
@@ -32,6 +34,7 @@ public class TeacherApi {
     //save
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "save teacher")
     public TeacherResponse save(@RequestBody TeacherRequest teacherRequest) {
         return teacherService.save(teacherRequest.getCourseId(), teacherRequest);
 
@@ -40,6 +43,7 @@ public class TeacherApi {
     //find by id
     @GetMapping("/find/{teacherId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find teacher by id")
     public TeacherResponse findById(@PathVariable Long teacherId) {
         return teacherService.findById(teacherId);
     }
@@ -47,6 +51,7 @@ public class TeacherApi {
     //delete
     @DeleteMapping("/delete/{teacherId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "delete teacher by id")
     public SimpleResponse deleteById(@PathVariable Long teacherId) {
         return teacherService.deleteById(teacherId);
     }
@@ -54,7 +59,7 @@ public class TeacherApi {
     //update
     @PutMapping("/update/{teacherId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-
+    @Operation(summary = "update teacher by id")
     public TeacherResponse updateById(@PathVariable Long teacherId,
                                       @RequestBody TeacherRequest teacherRequest) {
         return teacherService.updateById(teacherId, teacherRequest);

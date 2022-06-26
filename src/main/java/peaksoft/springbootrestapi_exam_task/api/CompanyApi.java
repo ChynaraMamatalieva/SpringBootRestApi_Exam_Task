@@ -1,5 +1,6 @@
 package peaksoft.springbootrestapi_exam_task.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,7 @@ public class CompanyApi {
     //find all
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find all companies")
     public List<CompanyResponse> findAll() {
         return companyService.findAll();
     }
@@ -28,6 +30,7 @@ public class CompanyApi {
     //find by id
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/find/{companyId}")
+    @Operation(summary = "find company by id")
     public CompanyResponse findById(@PathVariable Long companyId) {
         return companyService.findById(companyId);
     }
@@ -35,6 +38,7 @@ public class CompanyApi {
     //save
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "save company")
     public CompanyResponse save(@RequestBody CompanyRequest companyRequest) {
         return companyService.save(companyRequest);
 
@@ -43,6 +47,7 @@ public class CompanyApi {
     //delete
     @DeleteMapping("/delete/{companyId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "delete company by id")
     public SimpleResponse deleteById(@PathVariable Long companyId) {
         return companyService.deleteById(companyId);
     }
@@ -50,6 +55,7 @@ public class CompanyApi {
     //update
     @PutMapping("/update/{companyId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "update company by id")
     public CompanyResponse updateById(@PathVariable Long companyId,
                                       @RequestBody CompanyRequest companyRequest) {
         return companyService.updateById(companyId, companyRequest);

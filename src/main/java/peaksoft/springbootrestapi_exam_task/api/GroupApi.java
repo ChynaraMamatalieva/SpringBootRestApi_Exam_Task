@@ -1,5 +1,6 @@
 package peaksoft.springbootrestapi_exam_task.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.springbootrestapi_exam_task.dto.request.CompanyRequest;
@@ -28,6 +29,7 @@ public class GroupApi {
     //find all
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find all groups")
     public List<GroupResponse> findAll() {
         return groupService.findAll();
     }
@@ -35,6 +37,7 @@ public class GroupApi {
     //save
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "save group")
     public GroupResponse save(@RequestBody GroupRequest groupRequest) {
         return groupService.save(groupRequest);
 
@@ -43,6 +46,7 @@ public class GroupApi {
     //find by id
     @GetMapping("/find/{groupId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find group by id")
     public GroupResponse findById(@PathVariable Long groupId) {
         return groupService.findById(groupId);
     }
@@ -50,6 +54,7 @@ public class GroupApi {
     //update
     @PutMapping("/update/{groupId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "update group by id")
     public GroupResponse updateById(@PathVariable Long groupId,
                                     @RequestBody GroupRequest groupRequest) {
         return groupService.updateById(groupId, groupRequest);
@@ -58,6 +63,7 @@ public class GroupApi {
     //delete
     @DeleteMapping("/delete/{groupId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "delete group by id")
     public SimpleResponse deleteById(@PathVariable Long groupId) {
         return groupService.deleteById(groupId);
     }

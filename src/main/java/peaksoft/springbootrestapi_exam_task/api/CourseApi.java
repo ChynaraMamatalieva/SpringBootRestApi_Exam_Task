@@ -1,5 +1,6 @@
 package peaksoft.springbootrestapi_exam_task.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class CourseApi {
     //find all
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find all courses")
     public List<CourseResponse> findAll() {
         return courseService.findAll();
     }
@@ -30,6 +32,7 @@ public class CourseApi {
     //save
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "save course")
     public CourseResponse save(@RequestBody CourseRequest courseRequest) {
         return courseService.save(courseRequest, courseRequest.getCompanyId());
     }
@@ -37,6 +40,7 @@ public class CourseApi {
     //find by id
     @GetMapping("find/{courseId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Operation(summary = "find course by id")
     public CourseResponse findById(@PathVariable Long courseId) {
         return courseService.findById(courseId);
     }
@@ -44,6 +48,7 @@ public class CourseApi {
     //update
     @PutMapping("/update/{courseId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "update course by id")
     public CourseResponse updateById(@PathVariable Long courseId,
                                      @RequestBody CourseRequest courseRequest) {
         return courseService.updateById(courseId, courseRequest);
@@ -52,6 +57,7 @@ public class CourseApi {
     //delete
     @DeleteMapping("/delete/{courseId}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(summary = "delete course by id")
     public SimpleResponse deleteById(@PathVariable Long courseId) {
         return courseService.deleteById(courseId);
     }
